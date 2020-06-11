@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.org.soujava.rio</groupId>
+    <artifactId>Servlet4-sample</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <name>Sample-Servlet4</name>
+
+    <properties>
+        <tomee.version>8.0.2</tomee.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>[8.0,)</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+       <finalName>Servlet4-sample-1.0</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomee.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>${tomee.version}</version>
+                <configuration>
+                    <useBinaries>true</useBinaries>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>deploy-it</id>
+                        <phase>none</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <path>target/${project.build.finalName}.war</path>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>undeploy-it</id>
+                        <phase>none</phase>
+                        <goals>
+                            <goal>undeploy</goal>
+                        </goals>
+                        <configuration>
+                            <path>${project.build.finalName}</path>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>
